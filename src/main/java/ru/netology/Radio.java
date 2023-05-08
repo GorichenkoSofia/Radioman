@@ -1,3 +1,5 @@
+package ru.netology;
+
 public class Radio {
     private int stationNumber;
     private int volume;
