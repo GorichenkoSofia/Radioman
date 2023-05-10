@@ -11,8 +11,8 @@ class RadiomanTest {
 
     @Test
     void shouldSetCurrentVolume() {
-        Radioman radio = new Radioman(1, 34, minRadioStation, maxRadioStation, minVolume, maxVolume);
-        int expected = 34;
+        Radioman radio = new Radioman(1, 35, minRadioStation, maxRadioStation, minVolume, maxVolume);
+        int expected = 35;
         radio.setCurrentValume(expected);
         Assertions.assertEquals(expected, radio.getCurrentVolume());
     }
