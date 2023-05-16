@@ -27,12 +27,9 @@ class RadiomanTest {
 
     @Test
     void shouldInvalidMinSetCurrentVolume() {
-        // Текущая громкость
         int expected = 1;
         Radioman radio = new Radioman(1, 1);
-        // Установить значение громкости больше максимальной
         radio.setCurrentValume(-1);
-        // Проверить, что текущая громкость не изменилась
         Assertions.assertEquals(expected, radio.getCurrentVolume());
     }
 
@@ -100,12 +97,9 @@ class RadiomanTest {
     @Test
     void shouldNextRadioStation() {
         Radioman radio = new Radioman(9, 50, minRadioStation, maxRadioStation, minVolume, maxVolume);
-        // Нажать 2 раза next
         radio.nextStation();
         radio.nextStation();
-        // Ожидаемый результат
         int expected = 0;
-        // Проверить, что станция 0 теперь текущая
         Assertions.assertEquals(expected, radio.getCurrentRadioStation());
     }
 
@@ -116,6 +110,14 @@ class RadiomanTest {
         radio.prevStation();
         int expected = 10;
         Assertions.assertEquals(expected, radio.getCurrentRadioStation());
+    }
+
+    @Test
+    void shouldSetMaxRadiostation () {
+        int expected = 15;
+        Radioman radio = new Radioman(expected);
+
+        Assertions.assertEquals(14, radio.getMaxRadioStation(expected));
     }
 
 

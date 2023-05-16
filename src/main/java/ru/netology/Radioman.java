@@ -23,6 +23,10 @@ public class Radioman {
 
     }
 
+    public Radioman(int maxRadioStation) {
+        this.maxRadioStation = maxRadioStation-1;
+    }
+
 
     public void setCurrentRadioStation(int currentRadioStation) {
         if (currentRadioStation < maxRadioStation) {
