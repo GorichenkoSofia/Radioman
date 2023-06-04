@@ -3,129 +3,168 @@ package ru.netology;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class RadiomanTest {
-    private int minVolume = 0;
-    private int maxVolume = 100;
-    private int minRadioStation = 0;
-    private int maxRadioStation = 10;
-
+public class RadiomanTest {
     @Test
-    void shouldSetCurrentVolume() {
-        Radioman radio = new Radioman(1, 35, minRadioStation, maxRadioStation, minVolume, maxVolume);
-        int expected = 35;
-        radio.setCurrentValume(expected);
-        Assertions.assertEquals(expected, radio.getCurrentVolume());
+    public void shouldNotSetVolumeOverMax() {
+        Radioman radio = new Radioman();
+
+        radio.setCurrentVolume(101);
+
+        int expected = radio.getCurrentVolume();
+        int actual = radio.getCurrentVolume();
+
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void shouldInvalidMaxSetCurrentVolume() {
+    public void shouldNotSetVolumeUnderMin() {
+        Radioman radio = new Radioman();
+
+        radio.setCurrentVolume(-1);
+
+        int expected = radio.getCurrentVolume();
+        int actual = radio.getCurrentVolume();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldIncreaseVolume() {
+        Radioman radio = new Radioman();
+
+        radio.setCurrentVolume(5);
+        radio.increaseCurrentVolume();
+
+        int expected = 6;
+        int actual = radio.getCurrentVolume();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldIncreaseVolumeOverMax() {
+        Radioman radio = new Radioman();
+
+        radio.setCurrentVolume(100);
+        radio.increaseCurrentVolume();
+
         int expected = 100;
-        Radioman radio = new Radioman(1, expected);
-        radio.setCurrentValume(101);
-        Assertions.assertEquals(expected, radio.getCurrentVolume());
+        int actual = radio.getCurrentVolume();
+
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void shouldInvalidMinSetCurrentVolume() {
-        int expected = 1;
-        Radioman radio = new Radioman(1, 1);
-        radio.setCurrentValume(-1);
-        Assertions.assertEquals(expected, radio.getCurrentVolume());
-    }
+    public void shouldDecreaseVolumeUnderMin() {
 
-    @Test
-    void shouldIncreaseCurrentVolume() {
-        Radioman radio = new Radioman(1, 99, minRadioStation, maxRadioStation, minVolume, maxVolume);
-        radio.increaseCurrentVolume();
-        radio.increaseCurrentVolume();
-        Assertions.assertEquals(radio.getMaxVolume(), radio.getCurrentVolume());
-    }
+        Radioman radio = new Radioman();
 
-    @Test
-    void shouldDecreaseCurrentVolume() {
-        Radioman radio = new Radioman(1, 1, minRadioStation, maxRadioStation, minVolume, maxVolume);
+        radio.setCurrentVolume(0);
         radio.decreaseCurrentVolume();
-        radio.decreaseCurrentVolume();
-        Assertions.assertEquals(radio.getMinVolume(), radio.getCurrentVolume());
+
+        int expected = 0;
+        int actual = radio.getCurrentVolume();
+
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void shouldSetCurrentRadioStation() {
-        Radioman radio = new Radioman(9, 50, minRadioStation, maxRadioStation, minVolume, maxVolume);
+    public void shouldDecreaseVolume() {
+        Radioman radio = new Radioman();
+
+        radio.setCurrentVolume(10);
+        radio.decreaseCurrentVolume();
+
         int expected = 9;
-        radio.setCurrentRadioStation(expected);
-        Assertions.assertEquals(expected, radio.getCurrentRadioStation());
+        int actual = radio.getCurrentVolume();
+
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void shouldSetMinRadioStation() {
-        Radioman radio = new Radioman(0, 35);
-        int expected = 0;
-        radio.getMinRadioStation(expected);
-        Assertions.assertEquals(expected, radio.getCurrentRadioStation());
+    public void shouldNotSetStationOverMax() {
+        Radioman radio = new Radioman(15);
 
+        radio.setCurrentStation(16);
+
+        int expected = radio.getCurrentStation();
+        int actual = radio.getCurrentStation();
+
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void shouldSetMaxRadioStation() {
-        Radioman radio = new Radioman(10, 35);
-        int expected = 10;
-        radio.getMaxRadioStation(expected);
-        Assertions.assertEquals(expected, radio.getCurrentRadioStation());
+    public void shouldNotSetStationUnderMin() {
+        Radioman radio = new Radioman();
 
+        radio.setCurrentStation(-1);
+
+        int expected = radio.getCurrentStation();
+        int actual = radio.getCurrentStation();
+
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void shouldSetMinVolume() {
-        Radioman radio = new Radioman(2, 0);
-        int expected = 0;
-        radio.setMinVolume(expected);
-        Assertions.assertEquals(expected, radio.getCurrentVolume());
+    public void shouldChangeToNextStation() {
+        Radioman radio = new Radioman(15);
 
-    }
-
-    @Test
-    void shouldSetMaxVolume() {
-        Radioman radio = new Radioman(2, 100);
-        int expected = 100;
-        radio.setMaxVolume(expected);
-        Assertions.assertEquals(expected, radio.getCurrentVolume());
-
-    }
-
-
-    @Test
-    void shouldNextRadioStation() {
-        Radioman radio = new Radioman(9, 50, minRadioStation, maxRadioStation, minVolume, maxVolume);
+        radio.setCurrentStation(12);
         radio.nextStation();
+
+        int expected = 13;
+        int actual = radio.getCurrentStation();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void shouldChangeToPrevStation() {
+        Radioman radio = new Radioman(15);
+
+        radio.setCurrentStation(12);
+        radio.prevStation();
+
+        int expected = 11;
+        int actual = radio.getCurrentStation();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldChangeToNextStationOverMax() {
+        Radioman radio = new Radioman(15);
+
+        radio.setCurrentStation(14);
         radio.nextStation();
+
         int expected = 0;
-        Assertions.assertEquals(expected, radio.getCurrentRadioStation());
+        int actual = radio.getCurrentStation();
+
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    void shouldPrevRadioStation() {
-        Radioman radio = new Radioman(1, 50, minRadioStation, maxRadioStation, minVolume, maxVolume);
+    public void shouldChangeToPrevStationUnderMin() {
+        Radioman radio = new Radioman(15);
+
+        radio.setCurrentStation(0);
         radio.prevStation();
-        radio.prevStation();
+
+        int expected = 14;
+        int actual = radio.getCurrentStation();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldShowNumOfMaxStations() {
+        Radioman radio = new Radioman(11);
+
         int expected = 10;
-        Assertions.assertEquals(expected, radio.getCurrentRadioStation());
+        int actual = radio.getNumOfMaxStations();
+
+        Assertions.assertEquals(expected, actual);
     }
-
-    @Test
-    void shouldSetMaxRadiostation () {
-        int expected = 15;
-        Radioman radio = new Radioman(expected);
-
-        Assertions.assertEquals(14, radio.getMaxRadioStation(expected));
-    }
-
-
 }
-
-
-
-
-
-
-
